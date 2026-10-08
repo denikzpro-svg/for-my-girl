@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Для моей кисули ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body {
-            background-color: #080a0f;
+            background-color: #0b0e17;
             color: #f3f4f6;
             min-height: 100vh;
             display: flex;
@@ -18,92 +18,194 @@
             padding: 16px;
             overflow-x: hidden;
             position: relative;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(244, 114, 182, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(244, 162, 97, 0.08) 0%, transparent 40%);
         }
         
+        /* Живой анимированный фон (сердечки и искорки) */
         .magic-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1; }
-        .floating-element { position: absolute; opacity: 0.2; animation: floatAround 12s infinite ease-in-out; }
+        .floating-element { position: absolute; opacity: 0.35; animation: floatAround 10s infinite ease-in-out; }
         @keyframes floatAround {
-            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.3; }
-            80% { opacity: 0.3; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(105vh) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
         .container {
             width: 100%;
-            max-width: 380px;
-            background: rgba(18, 22, 33, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(244, 162, 97, 0.25);
-            border-radius: 28px;
-            padding: 24px 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            max-width: 400px;
+            background: rgba(20, 24, 36, 0.88);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            border-radius: 32px;
+            padding: 26px 22px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(244, 114, 182, 0.08);
             position: relative;
             z-index: 5;
         }
 
-        .header-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(244, 162, 97, 0.1); color: #f4a261; font-size: 11px; font-weight: 600; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(244, 162, 97, 0.2); margin-bottom: 14px; }
-        
-        h1 { font-size: 21px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
-        .subtitle { font-size: 13px; color: #94a3b8; line-height: 1.5; margin-bottom: 18px; }
+        /* Шапка с милым котиком-аватаром */
+        .top-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 8px 14px;
+            border-radius: 20px;
+        }
+        .cat-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #f472b6;
+        }
+        .cat-avatar {
+            font-size: 18px;
+            animation: bounceCat 2s infinite ease-in-out;
+        }
+        @keyframes bounceCat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
 
-        /* Стильная лента из 5 полароид-фоток внутри карточки, с прокруткой или сеткой */
+        .status-pill {
+            background: rgba(244, 162, 97, 0.12);
+            color: #f4a261;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; letter-spacing: -0.3px; }
+        .subtitle { font-size: 13.5px; color: #94a3b8; line-height: 1.5; margin-bottom: 18px; }
+
+        /* Полароидная лента с анимацией при наведении */
         .polaroid-scroll {
             display: flex;
             gap: 10px;
             overflow-x: auto;
             padding-bottom: 8px;
             margin-bottom: 18px;
-            scrollbar-width: none; /* скрываем скроллбар в Firefox */
+            scrollbar-width: none;
         }
-        .polaroid-scroll::-webkit-scrollbar { display: none; } /* скрываем в Chrome/Safari */
+        .polaroid-scroll::-webkit-scrollbar { display: none; }
 
         .polaroid-item {
             background: #fff;
-            padding: 5px 5px 10px 5px;
-            border-radius: 3px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-            min-width: 75px;
+            padding: 6px 6px 12px 6px;
+            border-radius: 4px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            min-width: 80px;
             flex-shrink: 0;
-            transform: rotate(-2deg);
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
         }
-        .polaroid-item:nth-child(even) { transform: rotate(2deg); }
+        .polaroid-item:nth-child(even) { transform: rotate(3deg); }
+        .polaroid-item:hover { transform: scale(1.08) rotate(0deg); z-index: 10; }
         .polaroid-item img {
-            width: 65px;
-            height: 75px;
+            width: 68px;
+            height: 80px;
             object-fit: cover;
             border-radius: 2px;
             display: block;
         }
 
+        /* Интерактивные яркие кнопки */
         .btn-group { display: flex; flex-direction: column; gap: 10px; }
-        .option-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); color: #ffffff; padding: 14px 16px; border-radius: 16px; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: 0.2s; }
-        .option-btn:hover { background: rgba(244, 162, 97, 0.08); border-color: rgba(244, 162, 97, 0.35); }
-        .option-btn svg { width: 16px; height: 16px; stroke: #f4a261; }
-        
-        .response-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(244, 162, 97, 0.15); border-radius: 18px; padding: 16px; margin-bottom: 16px; font-size: 13px; color: #e2e8f0; line-height: 1.6; }
-        
-        .movie-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); color: #e2e8f0; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; cursor: pointer; width: 100%; text-align: left; margin-bottom: 8px; }
-        .movie-btn:hover { border-color: #f4a261; background: rgba(244, 162, 97, 0.06); }
-        
+        .option-btn {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            padding: 15px 18px;
+            border-radius: 18px;
+            font-size: 14.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .option-btn:hover {
+            background: rgba(244, 114, 182, 0.08);
+            border-color: rgba(244, 114, 182, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 114, 182, 0.15);
+        }
+        .option-btn svg { width: 16px; height: 16px; stroke: #f472b6; transition: transform 0.2s; }
+        .option-btn:hover svg { transform: translateX(3px); }
+
+        .response-card {
+            background: rgba(244, 114, 182, 0.04);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 18px;
+            font-size: 13.5px;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .movie-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+            padding: 13px 18px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .movie-btn:hover {
+            border-color: #f472b6;
+            background: rgba(244, 114, 182, 0.08);
+            color: #fff;
+        }
+
         .hidden { display: none !important; }
-        .fade-in { animation: fadeIn 0.4s ease forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
+<!-- Весёлый движ на фоне: сердечки, кошачьи лапки и искорки -->
 <div class="magic-bg">
-    <div class="floating-element" style="left: 20%; animation-duration: 11s; font-size: 16px;">🌸</div>
-    <div class="floating-element" style="left: 80%; animation-duration: 13s; font-size: 14px;">✨</div>
-    <div class="floating-element" style="left: 50%; animation-duration: 9s; font-size: 18px;">💖</div>
+    <div class="floating-element" style="left: 10%; animation-duration: 9s; font-size: 18px;">🐾</div>
+    <div class="floating-element" style="left: 30%; animation-duration: 12s; font-size: 16px;">💖</div>
+    <div class="floating-element" style="left: 60%; animation-duration: 8s; font-size: 18px;">✨</div>
+    <div class="floating-element" style="left: 85%; animation-duration: 11s; font-size: 16px;">🐾</div>
+    <div class="floating-element" style="left: 45%; animation-duration: 10s; font-size: 18px;">🌸</div>
 </div>
 
 <div class="container">
-    <div class="header-tag"><span>📸 Наши моменты</span></div>
+    <!-- Шапка с котиком -->
+    <div class="top-banner">
+        <div class="cat-badge">
+            <span class="cat-avatar">🐱</span>
+            <span>Мур-контроль</span>
+        </div>
+        <span class="status-pill">Online 💖</span>
+    </div>
 
-    <!-- ВСЕ 5 ФОТОК АККУРАТНО В ЛЕНТЕ ПЕРЕД ТЕКСТОМ -->
+    <!-- Лента из 5 полароидных фото -->
     <div class="polaroid-scroll">
         <div class="polaroid-item"><img src="1.jpg" alt="1"></div>
         <div class="polaroid-item"><img src="2.jpg" alt="2"></div>
@@ -112,12 +214,13 @@
         <div class="polaroid-item"><img src="5.jpg" alt="5"></div>
     </div>
 
+    <!-- ШАГ 1 -->
     <div id="step-1">
-        <h1>Доброе утречко, кисуля</h1>
-        <p class="subtitle">Как ты себя чувствуешь после ночи? Выбирай состояние, режим восстановления запущен.</p>
+        <h1>Доброе утречко, кисуля ✨</h1>
+        <p class="subtitle">Как твоё самочувствие после ночки? Выбирай честно, кот следит за лечением.</p>
         <div class="btn-group">
             <button class="option-btn" onclick="selectMood('better')">
-                <span>Уже лучше ✨</span>
+                <span>Уже лучше ☀️</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
             <button class="option-btn" onclick="selectMood('worse')">
@@ -127,17 +230,18 @@
         </div>
     </div>
 
+    <!-- ШАГ 2 -->
     <div id="step-2" class="hidden fade-in">
         <div class="response-card" id="response-text"></div>
         <div style="margin-bottom: 16px;">
-            <p style="font-size: 11px; font-weight: 600; color: #f4a261; margin-bottom: 10px; text-transform: uppercase;">Кинозал на удаленке (Rave) 🎥</p>
-            <button class="movie-btn" onclick="finishSelection()">☕️ Уютный сериал фоном</button>
-            <button class="movie-btn" onclick="finishSelection()">🔥 Динамичное кино / боевик</button>
-            <button class="movie-btn" onclick="finishSelection()">🍿 Легкая комедия</button>
+            <p style="font-size: 11px; font-weight: 700; color: #f472b6; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Кинозал на удаленке (Rave) 🎥</p>
+            <button class="movie-btn" onclick="finishSelection()"><span>☕️</span> Уютный сериал фоном</button>
+            <button class="movie-btn" onclick="finishSelection()"><span>🔥</span> Динамичное кино / боевик</button>
+            <button class="movie-btn" onclick="finishSelection()"><span>🍿</span> Легкая комедия</button>
         </div>
-        <div id="final-block" class="hidden fade-in response-card" style="text-align: center; border-color: rgba(244, 162, 97, 0.3); background: rgba(244, 162, 97, 0.04);">
-            <p style="color: #f4a261; font-weight: 600; font-size: 13px; margin-bottom: 6px;">Всё по плану ✨</p>
-            <p style="color: #e2e8f0; font-size: 13px; margin: 0;">Люблю тебя очень-очень сильно. Скоро оба оклемаемся и наобнимаемся за все дни.</p>
+        <div id="final-block" class="hidden fade-in response-card" style="text-align: center; border-color: rgba(244, 114, 182, 0.3); background: rgba(244, 114, 182, 0.06);">
+            <p style="color: #f472b6; font-weight: 700; font-size: 13.5px; margin-bottom: 6px;">Всё зафиксировано! 🐾</p>
+            <p style="color: #e2e8f0; font-size: 13.5px; margin: 0;">Люблю тебя очень-очень сильно. Скоро оба оклемаемся и наобнимаемся за все дни.</p>
         </div>
     </div>
 </div>
@@ -149,7 +253,7 @@
         if (type === 'better') {
             respBox.innerHTML = `<strong>Отличные новости! ☀️</strong><br>Меня невероятно радует, что ты идёшь на поправку. Жалко, что мы оба на карантине по разным углам, но как выздоровеем — всё наверстаем.`;
         } else {
-            respBox.innerHTML = `<strong>Принято к исполнению 🛑</strong><br>Организм еще борется, поэтому сегодня строгий режим: плед 🌯, горячий чай 🫖 и полный игнор любых дел. Я на связи.`;
+            respBox.innerHTML = `<strong>Принято к исполнению 🛑🐾</strong><br>Организм еще борется, поэтому сегодня строгий режим: плед 🌯, горячий чай 🫖 и полный игнор любых дел. Я на связи.`;
         }
         document.getElementById('step-2').classList.remove('hidden');
     }
