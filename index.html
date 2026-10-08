@@ -40,7 +40,7 @@
         .container {
             width: 100%;
             max-width: 420px;
-            background: rgba(26, 18, 38, 0.9);
+            background: rgba(26, 18, 38, 0.92);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 2px solid rgba(244, 114, 182, 0.35);
@@ -172,17 +172,18 @@
             line-height: 1.6;
         }
 
-        /* Игровое поле мини-игры */
-        #game-canvas {
-            background: #120b1e;
+        /* Стили аркады */
+        #arcade-canvas {
+            background: #09060f;
             border: 2px solid rgba(244, 114, 182, 0.4);
-            border-radius: 18px;
+            border-radius: 20px;
             display: block;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 12px auto;
             touch-action: none;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* Секции выбора фильмов */
+        /* Стили каталога фильмов */
         .movie-category { margin-bottom: 14px; }
         .movie-category h3 { font-size: 13px; color: #f472b6; margin-bottom: 6px; text-transform: uppercase; font-weight: 800; }
         .movie-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
@@ -227,6 +228,7 @@
         <div class="hearts-container" id="hearts-display">❤️❤️❤️</div>
     </div>
 
+    <!-- Полароиды (твои фото 1.jpg - 5.jpg) -->
     <div class="polaroid-scroll">
         <div class="polaroid-item"><img src="1.jpg" alt="1"></div>
         <div class="polaroid-item"><img src="2.jpg" alt="2"></div>
@@ -235,7 +237,7 @@
         <div class="polaroid-item"><img src="5.jpg" alt="5"></div>
     </div>
 
-    <!-- ЭКРАН 1: СТАРТ -->
+    <!-- ЭКРАН СТАРТА -->
     <div id="screen-start">
         <h1>Привет, моя хорошая <span class="heart-beat">❤️</span></h1>
         <p class="subtitle">Как твоё самочувствие после ночки? Твой личный котик проводит диагностику!</p>
@@ -261,75 +263,79 @@
         </div>
     </div>
 
-    <!-- ЭКРАН ВИКТОРИНЫ (5 УРОВНЕЙ) -->
+    <!-- ЭКРАН ВИКТОРИНЫ -->
     <div id="screen-quiz" class="hidden fade-in">
         <div class="response-card" id="quiz-box"></div>
         <div class="btn-group" id="quiz-options"></div>
     </div>
 
     <!-- ЭКРАН ПЕРЕХОДА НА СКУТЕР -->
-    <div id="screen-scooter-intro" class="hidden fade-in">
-        <div class="response-card" style="text-align: center;">
+    <div id="screen-scooter-intro" class="hidden fade-in" style="text-align: center;">
+        <div class="response-card">
             <strong>🧠 Викторина пройдена на ура!</strong><br>
-            А теперь — Уровень 2! Проверим, как хорошо ты помнишь наши летние покатушки на скутере. Объезжай ямы пальцем! 🛵✨
+            А теперь — Уровень 2! Проверим наши летние покатушки на скутере. 🛵<br>Держи палец на экране, объезжай ямы (`🕳️`) и уворачивайся от встречных фур (`🚛`) целых 30 секунд!
         </div>
-        <button class="option-btn" style="justify-content: center; text-align: center; background: rgba(236, 72, 153, 0.25);" onclick="startScooterGame()">
-            <span>🚀 Погнали на скутере!</span>
+        <button class="option-btn" style="justify-content: center; text-align: center; background: rgba(236, 72, 153, 0.25);" onclick="launchArcadeGame()">
+            <span>🚀 Завести мотор скутера!</span>
         </button>
     </div>
 
-    <!-- ЭКРАН МИНИ-ИГРЫ НА СКУТЕРЕ -->
-    <div id="screen-scooter-game" class="hidden fade-in" style="text-align: center;">
-        <p style="font-size: 12px; color: #f472b6; margin-bottom: 8px; font-weight: 700;">Управляй скутером пальцем 🛵 (Собери 5 очков!)</p>
-        <canvas id="game-canvas" width="340" height="260"></canvas>
+    <!-- ЭКРАН АРКАДЫ -->
+    <div id="screen-arcade" class="hidden fade-in" style="text-align: center;">
+        <canvas id="arcade-canvas" width="340" height="380"></canvas>
     </div>
 
-    <!-- ФИНАЛ: КАТАЛОГ ФИЛЬМОВ -->
-    <div id="screen-final" class="hidden fade-in">
+    <!-- ЭКРАН КАТАЛОГА ФИЛЬМОВ И ШОУ -->
+    <div id="screen-movies-catalog" class="hidden fade-in">
         <div class="response-card" style="border-color: rgba(236, 72, 153, 0.4); background: rgba(236, 72, 153, 0.12); text-align: center; margin-bottom: 14px;">
-            <p style="color: #f472b6; font-weight: 800; font-size: 14px; margin-bottom: 6px;">🎉 Квест полностью пройден!</p>
-            <p style="color: #fdf2f8; font-size: 12.5px; margin: 0;">Выдан пропуск на обнимашки и амнистия на чипсики! 🐾 А теперь выбери фильм на вечер в Rave:</p>
+            <p style="color: #f472b6; font-weight: 800; font-size: 14px; margin-bottom: 6px;">🎉 Квест и аркада пройдены!</p>
+            <p style="color: #fdf2f8; font-size: 12.5px; margin: 0;">Выдан пропуск на бесконечные обнимашки и амнистия на чипсики! 🐾 Выбирай контент на вечер в Rave:</p>
         </div>
 
-        <!-- Уютные сериалы -->
         <div class="movie-category">
-            <h3>☕️ Уютные сериалы фоном</h3>
+            <h3>💖 Романтика и уют</h3>
             <div class="movie-grid">
-                <button class="movie-item" onclick="selectMovie('Уютный сериал: Друзья')">🎬 Друзья (классика на репите)</button>
-                <button class="movie-item" onclick="selectMovie('Уютный сериал: Теория Большого Взрыва')">🧪 Теория Большого Взрыва</button>
-                <button class="movie-item" onclick="selectMovie('Уютный сериал: Как я встретил вашу маму')">☂️ Как я встретил вашу маму</button>
-                <button class="movie-item" onclick="selectMovie('Уютный сериал: Офис')">📎 Офис</button>
-                <button class="movie-item" onclick="selectMovie('Уютный сериал: Современная семейка')">🏡 Современная семейка</button>
+                <button class="movie-item" onclick="selectMovie('Романтика: Ла-Ла Лэнд')">🎶 Ла-Ла Лэнд (атмосфера и музыка)</button>
+                <button class="movie-item" onclick="selectMovie('Романтика: 500 дней лета')">💔 500 дней лета</button>
+                <button class="movie-item" onclick="selectMovie('Романтика: Бойфренд из будущего')">⏳ Бойфренд из будущего</button>
+                <button class="movie-item" onclick="selectMovie('Романтика: Предложение')">💍 Предложение (с Сандрой Буллок)</button>
             </div>
         </div>
 
-        <!-- Динамичное кино / боевики -->
         <div class="movie-category">
-            <h3>🔥 Динамичное кино / боевики</h3>
+            <h3>💥 Динамичные боевики</h3>
             <div class="movie-grid">
-                <button class="movie-item" onclick="selectMovie('Боевик: Джон Уик')">💥 Джон Уик (всех наказать)</button>
-                <button class="movie-item" onclick="selectMovie('Боевик: Форсаж')">🏎️ Форсаж (семейные ценности)</button>
-                <button class="movie-item" onclick="selectMovie('Боевик: Безумный Макс')">🔥 Безумный Макс: Дорога ярости</button>
-                <button class="movie-item" onclick="selectMovie('Боевик: Миссия невыполнима')">🕶️ Миссия невыполнима</button>
-                <button class="movie-item" onclick="selectMovie('Боевик: Марсианин')">🚀 Марсианин</button>
+                <button class="movie-item" onclick="selectMovie('Боевик: Джон Уик')">🔥 Джон Уик (всех наказать)</button>
+                <button class="movie-item" onclick="selectMovie('Боевик: Безумный Макс: Дорога ярости')">🏎️ Безумный Макс</button>
+                <button class="movie-item" onclick="selectMovie('Боевик: Форсаж')">🏁 Форсаж (семейный вайб)</button>
+                <button class="movie-item" onclick="selectMovie('Боевик: Главный герой')">🎮 Главный герой</button>
             </div>
         </div>
 
-        <!-- Легкие комедии -->
         <div class="movie-category">
-            <h3>🌸 Легкие комедии</h3>
+            <h3>👻 Хорроры (боимся вместе)</h3>
             <div class="movie-grid">
-                <button class="movie-item" onclick="selectMovie('Комедия: Мальчишник в Вегасе')">🍸 Мальчишник в Вегасе</button>
-                <button class="movie-item" onclick="selectMovie('Комедия: Мы — Миллеры')">🚐 Мы — Миллеры</button>
-                <button class="movie-item" onclick="selectMovie('Комедия: 1+1 (Неприкасаемые)')">🤝 1+1 (душевная комедия)</button>
-                <button class="movie-item" onclick="selectMovie('Комедия: Главный герой')">🎮 Главный герой</button>
-                <button class="movie-item" onclick="selectMovie('Комедия: Свободный человек / Крутые меры')">⭐ Супербатя / Комедия на вечер</button>
+                <button class="movie-item" onclick="selectMovie('Хоррор: Заклятие')">👻 Заклятие (классика ужасов)</button>
+                <button class="movie-item" onclick="selectMovie('Хоррор: Синистер')">📼 Синистер (самый жуткий)</button>
+                <button class="movie-item" onclick="selectMovie('Хоррор: Оно')">🎈 Оно (Пеннивайз на связи)</button>
+                <button class="movie-item" onclick="selectMovie('Хоррор: Астрал')">🚪 Астрал</button>
+            </div>
+        </div>
+
+        <div class="movie-category">
+            <h3>📺 Легендарные шоу и залипалово</h3>
+            <div class="movie-grid">
+                <button class="movie-item" onclick="selectMovie('Шоу: Беременна в 16')">🍼 «Беременна в 16» (драмы жизни)</button>
+                <button class="movie-item" onclick="selectMovie('Шоу: Мужское / Женское')">🎙️ «Мужское / Женское» (баня и крики)</button>
+                <button class="movie-item" onclick="selectMovie('Шоу: Битва экстрасенсов')">🔮 «Битва экстрасенсов»</button>
+                <button class="movie-item" onclick="selectMovie('Шоу: Ревизорро / На ножах')">🍳 «На ножах» с Ивлевым</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    // --- ЛОГИКА ВИКТОРИНЫ ---
     let currentQuizStep = 0;
     let lives = 3;
 
@@ -351,7 +357,7 @@
             ]
         },
         {
-            question: "Уровень 3 из 5: Какой главный парадокс произошёл с нашими крысами (Пися и Мися)?",
+            question: "Уровень 3 из 5: Какой главный парадокс произошёл с нашими крысами (Писюн и Пися)?",
             options: [
                 { text: "Они научились разговаривать по-французски 🇫🇷", correct: false },
                 { text: "Пися внезапно оказался писюном 🐈", correct: true },
@@ -362,8 +368,8 @@
             question: "Уровень 4 из 5: Как мы хотели назвать Лёлю первоначально?",
             options: [
                 { text: "Одуванчик 🌼", correct: false },
-                { text: "Булочка 🍞", correct: false },
-                { text: "Лопух 🌱", correct: true }
+                { text: "Булочка 🍞", correct: true },
+                { text: "Лопух 🌱", correct: false }
             ]
         },
         {
@@ -371,7 +377,7 @@
             options: [
                 { text: "Собачка Лёля 🐶", correct: true },
                 { text: "Писюн и Пися 🐁", correct: false },
-                { text: "Конечно же, я сама ❤️", correct: false }
+                { text: "Я сама ❤️", correct: false }
             ]
         }
     ];
@@ -411,7 +417,7 @@
             optContainer.innerHTML = '';
             
             data.options.forEach(opt => {
-                const btn = document.createElement('button');
+                let btn = document.createElement('button');
                 btn.className = 'option-btn';
                 btn.innerHTML = `<span>${opt.text}</span>`;
                 btn.onclick = () => {
@@ -435,104 +441,192 @@
         } else {
             screen.classList.add('hidden');
             document.getElementById('screen-scooter-intro').classList.remove('hidden');
-            document.getElementById('top-title').innerText = 'Скутер 🛵';
+            document.getElementById('top-title').innerText = 'Скутер-аркада 🛵';
         }
     }
 
-    /* МИНИ-ИГРА НА СКУТЕРЕ */
-    let gameInterval = null;
-    function startScooterGame() {
+    // --- ЛОГИКА АРКАДЫ (СКУТЕР) ---
+    function launchArcadeGame() {
         document.getElementById('screen-scooter-intro').classList.add('hidden');
-        document.getElementById('screen-scooter-game').classList.remove('hidden');
-        
-        const canvas = document.getElementById('game-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let scooterX = canvas.width / 2;
-        let score = 0;
-        let obstacles = [];
-        let isDragging = false;
+        document.getElementById('screen-arcade').classList.remove('hidden');
 
-        canvas.addEventListener('pointerdown', (e) => { isDragging = true; updatePos(e); });
-        canvas.addEventListener('pointermove', (e) => { if (isDragging) updatePos(e); });
+        const canvas = document.getElementById('arcade-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let roadOffset = 0;
+        let playerX = canvas.width / 2;
+        let playerY = canvas.height - 70;
+        let isDragging = false;
+        
+        let scoreDistance = 0;
+        let gameLives = 3;
+        let gameActive = true;
+        let obstacles = [];
+        let obstacleTimer = null;
+
+        canvas.addEventListener('pointerdown', (e) => { isDragging = true; handleMove(e); });
+        canvas.addEventListener('pointermove', (e) => { if (isDragging) handleMove(e); });
         canvas.addEventListener('pointerup', () => { isDragging = false; });
 
-        function updatePos(e) {
+        function handleMove(e) {
             const rect = canvas.getBoundingClientRect();
-            scooterX = e.clientX - rect.left;
-            if (scooterX < 20) scooterX = 20;
-            if (scooterX > canvas.width - 20) scooterX = canvas.width - 20;
+            playerX = e.clientX - rect.left;
+            if (playerX < 40) playerX = 40;
+            if (playerX > canvas.width - 40) playerX = canvas.width - 40;
         }
 
-        gameInterval = setInterval(() => {
+        function spawnObstacles() {
+            if (!gameActive) return;
+            if (Math.random() < 0.45) {
+                let type = Math.random() < 0.5 ? 'pothole' : 'truck';
+                let spawnX = Math.random() * (canvas.width - 100) + 50;
+                obstacles.push({
+                    x: spawnX,
+                    y: -60,
+                    type: type,
+                    width: type === 'truck' ? 44 : 32,
+                    height: type === 'truck' ? 75 : 32
+                });
+            }
+        }
+
+        obstacleTimer = setInterval(spawnObstacles, 800);
+
+        function updateGame() {
+            if (!gameActive) return;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Дорога
-            ctx.fillStyle = '#181026';
+            ctx.fillStyle = '#140f1f';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Спавн ям
-            if (Math.random() < 0.04) {
-                obstacles.push({
-                    x: Math.random() * (canvas.width - 60) + 30,
-                    y: -30,
-                    radius: 18
-                });
-            }
+            // Обочины
+            ctx.fillStyle = '#1f1335';
+            ctx.fillRect(0, 0, 18, canvas.height);
+            ctx.fillRect(canvas.width - 18, 0, 18, canvas.height);
 
-            // Движение ям
+            // Линия разметки
+            roadOffset += 4.5;
+            if (roadOffset > 40) roadOffset = 0;
+
+            ctx.strokeStyle = 'rgba(244, 114, 182, 0.4)';
+            ctx.lineWidth = 3;
+            ctx.setLineDash([15, 20]);
+            ctx.lineDashOffset = -roadOffset;
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Отрисовка препятствий
             for (let i = obstacles.length - 1; i >= 0; i--) {
-                obstacles[i].y += 3.5;
+                let obs = obstacles[i];
+                obs.y += 4.2;
 
-                // Рисуем яму
-                ctx.fillStyle = '#08050e';
-                ctx.beginPath();
-                ctx.arc(obstacles[i].x, obstacles[i].y, obstacles[i].radius, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.strokeStyle = '#f472b6';
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
-                ctx.fillStyle = '#fbcfe8';
-                ctx.font = '10px sans-serif';
-                ctx.fillText('🕳️', obstacles[i].x - 6, obstacles[i].y + 4);
-
-                // Проверка столкновения
-                let dist = Math.hypot(scooterX - obstacles[i].x, (canvas.height - 40) - obstacles[i].y);
-                if (dist < obstacles[i].radius + 12) {
-                    alert('Ой, ямка! Аккуратнее на дороге, давай еще разок! 🛵');
-                    obstacles[i].y = canvas.height + 50; // сбрасываем
-                    score = Math.max(0, score - 1);
+                if (obs.type === 'pothole') {
+                    ctx.fillStyle = '#06040a';
+                    ctx.beginPath();
+                    ctx.arc(obs.x, obs.y, 18, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#ec4899';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.font = '16px sans-serif';
+                    ctx.fillText('🕳️', obs.x - 10, obs.y + 6);
+                } else {
+                    ctx.fillStyle = '#3b1f47';
+                    ctx.fillRect(obs.x - 22, obs.y - 35, 44, 75);
+                    ctx.strokeStyle = '#f472b6';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(obs.x - 22, obs.y - 35, 44, 75);
+                    ctx.font = '24px sans-serif';
+                    ctx.fillText('🚛', obs.x - 14, obs.y + 8);
                 }
 
-                // Удаление прошедших
-                if (obstacles[i].y > canvas.height + 30) {
+                // Проверка удара
+                let hitDist = Math.hypot(playerX - obs.x, playerY - obs.y);
+                if (hitDist < 26) {
+                    gameLives--;
                     obstacles.splice(i, 1);
-                    score++;
+                    if (gameLives <= 0) {
+                        gameActive = false;
+                        clearInterval(obstacleTimer);
+                        showGameOver();
+                        return;
+                    }
+                }
+
+                // Подсчет дистанции
+                if (obs.y > canvas.height + 50) {
+                    obstacles.splice(i, 1);
+                    scoreDistance += 12;
                 }
             }
 
-            // Рисуем скутер
-            ctx.font = '28px sans-serif';
-            ctx.fillText('🛵', scooterX - 16, canvas.height - 25);
+            // Игрок (скутер)
+            ctx.font = '32px sans-serif';
+            ctx.fillText('🛵', playerX - 16, playerY + 10);
 
-            // Счётчик
+            // Текст интерфейса (HUD)
             ctx.fillStyle = '#fce7f3';
             ctx.font = '13px sans-serif';
-            ctx.fillText(`Счет: ${score} / 5`, 14, 22);
+            ctx.fillText(`🛣️ Дистанция: ${scoreDistance} / 500 м`, 16, 25);
+            ctx.fillText(`❤️ Жизни: ${'❤️ '.repeat(gameLives)}`, 16, 45);
 
-            // Условие победы (набрать 5 очков без провалов)
-            if (score >= 5) {
-                clearInterval(gameInterval);
-                document.getElementById('screen-scooter-game').classList.add('hidden');
-                document.getElementById('screen-final').classList.remove('hidden');
-                document.getElementById('top-title').innerText = 'Финал ❤️';
-                document.getElementById('screen-final').scrollIntoView({ behavior: 'smooth' });
+            // Условие победы
+            if (scoreDistance >= 500) {
+                gameActive = false;
+                clearInterval(obstacleTimer);
+                showGameWin();
+                return;
             }
-        }, 30);
+
+            requestAnimationFrame(updateGame);
+        }
+
+        requestAnimationFrame(updateGame);
+
+        function showGameOver() {
+            ctx.fillStyle = 'rgba(12, 8, 20, 0.92)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f472b6';
+            ctx.font = 'bold 18px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Ой, авария! 💥', canvas.width / 2, canvas.height / 2 - 20);
+            ctx.fillStyle = '#fbcfe8';
+            ctx.font = '13px sans-serif';
+            ctx.fillText('Давай объедем фуру еще разок!', canvas.width / 2, canvas.height / 2 + 10);
+            
+            ctx.fillStyle = '#ec4899';
+            ctx.fillRect(canvas.width / 2 - 80, canvas.height / 2 + 35, 160, 38);
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText('🔄 Ещё попытка', canvas.width / 2, canvas.height / 2 + 58);
+
+            canvas.onclick = () => {
+                canvas.onclick = null;
+                gameLives = 3;
+                scoreDistance = 0;
+                obstacles = [];
+                gameActive = true;
+                obstacleTimer = setInterval(spawnObstacles, 800);
+                requestAnimationFrame(updateGame);
+            };
+        }
+    }
+
+    // --- ЛОГИКА ФИНАЛА (КАТАЛОГ) ---
+    function showGameWin() {
+        document.getElementById('screen-arcade').classList.add('hidden');
+        document.getElementById('screen-movies-catalog').classList.remove('hidden');
+        document.getElementById('top-title').innerText = 'Кинозал ❤️';
+        document.getElementById('screen-movies-catalog').scrollIntoView({ behavior: 'smooth' });
     }
 
     function selectMovie(movieName) {
-        alert(`Ты выбрала: "${movieName}"! Отличный выбор ❤️ Начинаем сеанс!`);
+        alert(`Ты выбрала: "${movieName}"! Отличный выбор ❤️ Запускаем Rave!`);
     }
 </script>
 
